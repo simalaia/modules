@@ -1,0 +1,17 @@
+
+fn rot { 9 echo $*($#*) $*(`{9 seq 1 `{9 expr $#* - 1}}); }
+path=`{rot $path}
+
+
+bold=`{tput bold}
+underline=`{tput sgr 0 1}
+reset=`{tput sgr0}
+
+purple=`{tput setaf 171}
+red=`{tput setaf 1}
+green=`{tput setaf 76}
+tan=`{tput setaf 3}
+blue=`{tput setaf 38}
+
+fn e_header { printf "\n$bold$purple========== %s ===========$reset\n"
+                     "$*" }

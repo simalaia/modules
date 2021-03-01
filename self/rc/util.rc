@@ -1,0 +1,66 @@
+
+
+# I need to port this to es
+
+# rot>1
+fn rot { builtin echo $*($#*) $*(`{seq 1 `{echo $#* 1-p| dc}}); }
+
+#
+# Get some colours!
+#
+bold=`{tput bold}
+underline=`{tput sgr 0 1}
+reset=`{tput sgr0}
+
+purple=`{tput setaf 171}
+red=`{tput setaf 1}
+green=`{tput setaf 76}
+tan=`{tput setaf 3}
+blue=`{tput setaf 38}
+
+#
+# Print pretty colours
+#
+fn e_header { echo;echo $bold$purple '==============' $* '=============='$reset; }
+fn e_arrow { echo '➜' $*; }
+fn e_success { echo $green'✔' $* $reset; }
+fn e_error { echo $red'✖' $* $reset; }
+fn e_warning { echo $tan'➜' $* $reset; }
+fn e_underline { echo $underline$bold$* $reset; }
+fn e_bold { echo $bold$* $reset; }
+fn e_note { echo $underline$bold$blue'[NOTE]:'$reset$blue $* $reset; }
+
+
+fn confirmation {
+ echo $bold $* $reset
+ # how do one read input in rc?
+ echo;
+}
+
+fn confirm_head {
+ echo $underline$bold $* $reset
+ # read stuff
+ echo;
+}
+
+fn is_confirmed {
+ if (~ $REPLY [Yy]) {
+  return 0
+ }
+ return 1
+}
+
+# /usr/bin/type
+# This returns the type of commands, it's also a bash builtin
+# I will have to see whether rc either has something similar
+# or whether I can implement it.
+
+#
+#
+#
+fn is_os {
+ if (~ `{uname| tr A-Z a-z} $*(1)) {
+  return 0
+ }
+ return 1
+}
