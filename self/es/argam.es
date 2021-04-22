@@ -3,28 +3,16 @@
 
 fn argam {
 	let (n = 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x) {
-		echo $n(`{echo $^*^'+1'|j});
-	}
-}
+		echo $n(`{js $^* +1}); } }
 
 fn date60 {
-	let ((d m y) = `{date +'%d %m %Y'}) {
-		(d m y z) = `{argam $d $m `{dc -e '60o '^$y^'p'}}
-		echo $y^$z $m $d
-	}
-}
+	let ((y m d) = `{date +'%Y %m %d'}) {
+		(y z m d) = `{argam `{dc -e '60o '^$y^'p'} `{js $m $d -1} }
+		echo $y^$z $m $d| tr -d ' ' } }
 
-fn time60 {
-	let ((h m s) = `{date +'%H %M %S'}) {
-		echo `{argam $h $m $s}
-	}
-}
+fn time60 { argam `{date +'%H %M %S'}| tr -d ' ' }
 
-fn dt {
-	let ((y m d) = `{date60}; (H M S) = `{time60}) {
-		echo $y$m$d'_'$H$M$S
-	}
-}
+fn dt { echo `date60^`time60 }
 
 fn nt { echo -n `dt `{date +'%a'| tr A-Z a-z| sed -E 's/.$//'}| tr -d \n| clip }
 

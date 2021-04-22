@@ -11,7 +11,7 @@
 	(export dspl dsp wrtl wrt nl
 		;;λ
 		compose
-		did
+		did? id
 		fold foldr reduce filter
 		rec receive inc dec
 		)
@@ -22,8 +22,10 @@
 		(define (wrtl . o) (for-each write o) (newline))
 		(define (wrt . o) (for-each write o))
 
+		;; identity function, just because
+		(define (id x) x)
 		;; Truthy to actual truth value
-		(define (did x) (not (not x)))
+		(define (did? x) (not (not x)))
 		;;(define-syntax λ lambda)
 		(define nl (string #\newline))
 		
